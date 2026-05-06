@@ -271,7 +271,7 @@ export default function Index() {
                 <Icon name="Cpu" size={18} className="text-white" />
               </div>
               <div>
-                <div className="font-bold text-base leading-tight tracking-wide">ЭлектроКомпонент</div>
+                <div className="font-bold text-base leading-tight tracking-wide">Арсенал</div>
                 <div className="text-[10px] text-[#7da8c9] font-mono-tech uppercase tracking-widest">Завод электронных компонентов</div>
               </div>
             </div>
@@ -567,12 +567,12 @@ export default function Index() {
                       <Icon name="Factory" size={20} className="text-[#1a9fd4]" />
                     </div>
                     <div>
-                      <h2 className="font-bold text-[#0f2340]">ЭлектроКомпонент</h2>
-                      <div className="font-mono-tech text-xs text-gray-400">ООО «ЭлектроКомпонент»</div>
+                      <h2 className="font-bold text-[#0f2340]">Арсенал</h2>
+                      <div className="font-mono-tech text-xs text-gray-400">ООО «Арсенал»</div>
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                    Завод «ЭлектроКомпонент» основан в 1982 году и специализируется на производстве электронных компонентов
+                    Завод «Арсенал» основан в 1982 году и специализируется на производстве электронных компонентов
                     для промышленной, военной и гражданской электроники. За более чем 40 лет работы мы поставили продукцию
                     более чем 1 200 предприятиям России и СНГ.
                   </p>
@@ -627,7 +627,7 @@ export default function Index() {
                   <h2 className="font-semibold text-[#0f2340] mb-3 text-sm uppercase tracking-wide">Реквизиты</h2>
                   <div className="space-y-2.5">
                     {[
-                      { label: "Полное наименование", value: "ООО «ЭлектроКомпонент»" },
+                      { label: "Полное наименование", value: "ООО «Арсенал»" },
                       { label: "ИНН", value: "7701234567" },
                       { label: "КПП", value: "770101001" },
                       { label: "ОГРН", value: "1027700123456" },
@@ -828,7 +828,7 @@ export default function Index() {
       {/* FOOTER */}
       <footer className="bg-[#0a1a2e] text-[#7da8c9] mt-12 py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="font-mono-tech text-xs">© 2024 ООО «ЭлектроКомпонент». Все права защищены.</div>
+          <div className="font-mono-tech text-xs">© 2024 ООО «Арсенал». Все права защищены.</div>
           <div className="font-mono-tech text-xs">ГОСТ Р ISO 9001:2015 · ИНН 7701234567</div>
         </div>
       </footer>
