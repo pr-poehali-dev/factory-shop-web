@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
+import type { AuthUser } from "./LoginPage";
 
 type Category = "transistors" | "diodes" | "lf-connectors" | "hf-cables";
 
@@ -211,7 +212,12 @@ const CATEGORIES = [
 
 type Tab = "products" | "support" | "about";
 
-export default function Index() {
+interface IndexProps {
+  user: AuthUser;
+  onLogout: () => void;
+}
+
+export default function Index({ user, onLogout }: IndexProps) {
   const [tab, setTab] = useState<Tab>("products");
   const [activeCategory, setActiveCategory] = useState<Category>("transistors");
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -298,19 +304,39 @@ export default function Index() {
               ))}
             </nav>
 
-            {/* CART BUTTON */}
-            <button
-              onClick={() => setCartOpen(true)}
-              className={`relative flex items-center gap-2 bg-[#1a9fd4] hover:bg-[#158ab8] text-white px-3 py-1.5 rounded text-sm font-medium transition-all ${cartBounce ? "cart-bounce" : ""}`}
-            >
-              <Icon name="ShoppingCart" size={16} />
-              <span className="hidden sm:inline">Корзина</span>
-              {totalQty > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                  {totalQty}
-                </span>
-              )}
-            </button>
+            <div className="flex items-center gap-2">
+              {/* USER BADGE */}
+              <div className="hidden sm:flex items-center gap-2 bg-[#1c3556] px-3 py-1.5 rounded text-sm">
+                <Icon name={user.role === "admin" ? "ShieldCheck" : "User"} size={14} className={user.role === "admin" ? "text-yellow-400" : "text-[#7da8c9]"} />
+                <span className="text-white font-medium">{user.name}</span>
+                {user.role === "admin" && (
+                  <span className="text-[10px] bg-yellow-500/20 text-yellow-400 px-1.5 py-0.5 rounded font-mono uppercase tracking-wider">Admin</span>
+                )}
+              </div>
+
+              {/* CART BUTTON */}
+              <button
+                onClick={() => setCartOpen(true)}
+                className={`relative flex items-center gap-2 bg-[#1a9fd4] hover:bg-[#158ab8] text-white px-3 py-1.5 rounded text-sm font-medium transition-all ${cartBounce ? "cart-bounce" : ""}`}
+              >
+                <Icon name="ShoppingCart" size={16} />
+                <span className="hidden sm:inline">Корзина</span>
+                {totalQty > 0 && (
+                  <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                    {totalQty}
+                  </span>
+                )}
+              </button>
+
+              {/* LOGOUT */}
+              <button
+                onClick={onLogout}
+                title="Выйти"
+                className="flex items-center justify-center w-8 h-8 rounded bg-[#1c3556] hover:bg-red-900/40 text-[#7da8c9] hover:text-red-400 transition-all"
+              >
+                <Icon name="LogOut" size={15} />
+              </button>
+            </div>
           </div>
 
           {/* MOBILE NAV */}
