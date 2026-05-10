@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS t_p47486170_factory_shop_web.users (
+  id SERIAL PRIMARY KEY,
+  login VARCHAR(64) UNIQUE NOT NULL,
+  password VARCHAR(256) NOT NULL,
+  name VARCHAR(128) NOT NULL,
+  role VARCHAR(16) NOT NULL DEFAULT 'user',
+  created_at TIMESTAMP DEFAULT NOW()
+);

@@ -1,0 +1,11 @@
+{
+  "tests": [
+    {
+      "name": "Get clients",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
+  ]
+}

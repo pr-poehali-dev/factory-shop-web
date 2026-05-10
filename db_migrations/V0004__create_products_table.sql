@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS t_p47486170_factory_shop_web.products (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(256) NOT NULL,
+  article VARCHAR(128) NOT NULL,
+  category VARCHAR(128),
+  price NUMERIC(12,2) DEFAULT 0,
+  stock INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);

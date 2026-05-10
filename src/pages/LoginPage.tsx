@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
+import { api } from "@/api";
 
 export type UserRole = "admin" | "user";
 
@@ -7,31 +8,6 @@ export interface AuthUser {
   login: string;
   role: UserRole;
   name: string;
-}
-
-interface StoredUser {
-  login: string;
-  password: string;
-  role: UserRole;
-  name: string;
-}
-
-const DEFAULT_USERS: StoredUser[] = [
-  { login: "admin", password: "admin", role: "admin", name: "Администратор" },
-  { login: "nik", password: "000", role: "user", name: "Nik" },
-];
-
-function getUsers(): StoredUser[] {
-  try {
-    const saved = localStorage.getItem("arsenal_users");
-    return saved ? JSON.parse(saved) : DEFAULT_USERS;
-  } catch {
-    return DEFAULT_USERS;
-  }
-}
-
-function saveUsers(users: StoredUser[]) {
-  localStorage.setItem("arsenal_users", JSON.stringify(users));
 }
 
 interface LoginPageProps {
@@ -60,61 +36,38 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
   const [regSuccess, setRegSuccess] = useState(false);
   const [regLoading, setRegLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginLoading(true);
     setLoginError("");
-    setTimeout(() => {
-      const users = getUsers();
-      const found = users.find((u) => u.login === login.trim() && u.password === password);
-      if (found) {
-        onLogin({ login: found.login, role: found.role, name: found.name });
-      } else {
-        setLoginError("Неверный логин или пароль");
-      }
+    try {
+      const res = await api.login(login.trim(), password);
+      onLogin({ login: res.user.login, role: res.user.role as UserRole, name: res.user.name });
+    } catch (err: unknown) {
+      setLoginError(err instanceof Error ? err.message : "Ошибка входа");
+    } finally {
       setLoginLoading(false);
-    }, 400);
+    }
   };
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegError("");
 
-    if (regName.trim().length < 2) {
-      setRegError("Введите имя (минимум 2 символа)");
-      return;
-    }
-    if (regLogin.trim().length < 3) {
-      setRegError("Логин должен быть не короче 3 символов");
-      return;
-    }
-    if (regPassword.length < 3) {
-      setRegError("Пароль должен быть не короче 3 символов");
-      return;
-    }
-    if (regPassword !== regPassword2) {
-      setRegError("Пароли не совпадают");
-      return;
-    }
+    if (regName.trim().length < 2) { setRegError("Введите имя (минимум 2 символа)"); return; }
+    if (regLogin.trim().length < 3) { setRegError("Логин должен быть не короче 3 символов"); return; }
+    if (regPassword.length < 3) { setRegError("Пароль должен быть не короче 3 символов"); return; }
+    if (regPassword !== regPassword2) { setRegError("Пароли не совпадают"); return; }
 
     setRegLoading(true);
-    setTimeout(() => {
-      const users = getUsers();
-      if (users.find((u) => u.login === regLogin.trim())) {
-        setRegError("Такой логин уже занят, выберите другой");
-        setRegLoading(false);
-        return;
-      }
-      const newUser: StoredUser = {
-        login: regLogin.trim(),
-        password: regPassword,
-        role: "user",
-        name: regName.trim(),
-      };
-      saveUsers([...users, newUser]);
+    try {
+      await api.register(regName.trim(), regLogin.trim(), regPassword);
       setRegSuccess(true);
+    } catch (err: unknown) {
+      setRegError(err instanceof Error ? err.message : "Ошибка регистрации");
+    } finally {
       setRegLoading(false);
-    }, 400);
+    }
   };
 
   return (
