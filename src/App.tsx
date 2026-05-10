@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import LoginPage, { type AuthUser } from "./pages/LoginPage";
+import AdminPanel from "./pages/AdminPanel";
 
 const queryClient = new QueryClient();
 
@@ -41,7 +42,11 @@ const App = () => {
               path="/"
               element={
                 user ? (
-                  <Index user={user} onLogout={handleLogout} />
+                  user.role === "admin" ? (
+                    <AdminPanel user={user} onLogout={handleLogout} />
+                  ) : (
+                    <Index user={user} onLogout={handleLogout} />
+                  )
                 ) : (
                   <LoginPage onLogin={handleLogin} />
                 )
