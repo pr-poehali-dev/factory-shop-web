@@ -581,7 +581,7 @@ export default function Index({ user, onLogout }: IndexProps) {
           <div className="animate-fade-in">
             <div className="mb-6">
               <h1 className="text-2xl font-bold text-[#0f2340]">О компании</h1>
-              <p className="text-sm text-gray-500 mt-1">Производство электронных компонентов с 1982 года.</p>
+              <p className="text-sm text-gray-500 mt-1">Производство электронных компонентов с 2006 года.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
