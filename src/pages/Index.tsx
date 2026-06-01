@@ -642,7 +642,7 @@ export default function Index({ user, onLogout }: IndexProps) {
 
               {/* SIDEBAR */}
               <div className="space-y-4">
-                <div className="bg-white rounded-lg border border-gray-200 p-4">
+                <div className="bg-white border border-gray-200 p-4 rounded-0">
                   <h2 className="font-semibold text-[#0f2340] mb-3 text-sm uppercase tracking-wide">Реквизиты</h2>
                   <div className="space-y-2.5">
                     {[
