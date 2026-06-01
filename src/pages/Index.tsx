@@ -664,7 +664,7 @@ export default function Index({ user, onLogout }: IndexProps) {
                   <h2 className="font-semibold text-[#0f2340] mb-3 text-sm uppercase tracking-wide">Адрес производства</h2>
                   <div className="flex gap-2 mb-3">
                     <Icon name="MapPin" size={14} className="text-[#1a9fd4] flex-shrink-0 mt-0.5" />
-                    <span className="text-xs text-gray-600">143090, Московская область, г. Краснознаменск, ул. Связистов, д.9</span>
+                    <span className="text-xs text-gray-600">г. Москва, ул. Промышленная, д. 14</span>
                   </div>
                   <div className="bg-[#f5f7fa] rounded-lg h-32 flex items-center justify-center border border-gray-100">
                     <div className="text-center text-gray-400">
